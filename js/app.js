@@ -1,40 +1,40 @@
 'use strict'
 
-let keywords = [];
-let images = [];
+// let keywords =[];
 
-function Image(url, title, description, keyword, horns) {
-    this.url = url;
-    this.title = title;
-    this.description = description;
-    this.keyword = keyword;
-    this.horns = horns;
-    images.push(this);
+function Image(data) {
+    this.image_url = data.image_url;
+    this.title = data.title;
+    this.description = data.description;
+    this.keyword = data.keyword;
+    this.horns = data.horns;
+
+    Image.all.push(this);
 }
+Image.all = [];
 
 $.get('data/page-1.json').then(data => {
     //console.log(data)
     data.forEach(element => {
-
-        let img = new Image(element.image_url, element.title, element.description, element.keyword, element.horns);
-        keywords.push(element.keyword);
+        var img = new Image(element);
+        // console.log(img);
         img.displayImg();
+        
+        
     });
-    console.log(keywords);
-
+    // createOptions();
+    // img.createOptions();
+    createOptions();
+    
 });
 
 Image.prototype.displayImg = function () {
 
-    // console.log('here is this',this);
-
     let itemClone = $('.photo-template').clone().attr('id', this.keyword);
-
-
     // $('#photo-template').removeAttr('id');
     // استخدمنا فايند بدل الدولار ساين
     itemClone.find("h2").text(this.title);
-    itemClone.find("img").attr("src", this.url);
+    itemClone.find("img").attr("src", this.image_url);
     itemClone.find("p").text(this.description);
     itemClone.removeClass('photo-template');
     $('main').append(itemClone);
@@ -42,49 +42,30 @@ Image.prototype.displayImg = function () {
 }
 
 
+function createOptions () {
+    let shown = {};
+    console.log(Image.all)
+    
+    Image.all.forEach(img => {
+        if (!shown[img.keyword]) {
+           
+            var option = $(`<option value='${img.keyword}'>${img.keyword}</option>`);
+            $("#selectBtn").append(option);
+            
+            shown[img.keyword] = true
 
-// $(function (keyword) {
-//     var option = ''
-//     for (let i = 0 ; i < keywords.length; i ++){
-//         option = $("<option></option>");
-
-//         // option.text(this.keyword);
-//         // option.val(keyword.Id);
-//         $("#selectBtn").append(option);
-
-//     }
-// });
-
-var option = $("<option></option>");
-option.text('hello');
-$("#selectBtn").append(option);
-
-// Image.prototype.addItemToSelect = function(){
-//     for (let i = 0 ; i < keywords.length; i ++){
-//     var option = $("<option></option>");
-//      option.text(this.keyword);
-//      option.val(keyword.Id);
-//      $("#selectBtn").append(option);
-//     }
-// }
-// addItemToSelect();
-
-$(function (keyword) {
-    for (let i = 0; i < keywords.length; i++) {
-        var option = $("<option></option>");
-        option.text(keyword[i]);
-        // option.val(this.keyword.Id);
-        $("#selectBtn").append(option);
-    }
-    console.log(option);
-});
+            console.log('keyword',img.keyword)
+        }
+    })
+}
 
 
-// keywords.forEach(element => {
-//     var option = $("<option></option>");
-//     option.html(element.keyword);
-//     option.val(element.keyword.Id);
-//     $("#selectBtn").append(option);
-//     console.log(option);
-// });
 
+$('#selectBtn').change(function(){
+    
+    var selected=$(this).val();
+    $('section').fadeOut();
+   $(`#${selected}`).fadeIn();
+    console.log(selected);
+
+})
