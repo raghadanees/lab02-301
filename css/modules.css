@@ -1,0 +1,42 @@
+header select{
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: rgb(190, 108, 177);
+    text-align: center; 
+    width: 150px;
+    margin-left: 45%;
+}
+
+#btn{
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: row;
+}
+button{
+    background-color: darkseagreen;
+    display: inline-block;
+    margin: 5px 3px;
+    width: 120px;
+
+}
+
+button:hover{
+    background-color: rgb(206, 47, 47);
+}
+
+img{
+width: 250px;
+height: 300px;
+}
+section{
+    box-sizing: border-box;
+    width: 250px;
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: row;
+}
+section p,
+h2 {
+  text-align: center;
+  padding: 10px;
+}
