@@ -1,124 +1,98 @@
-'use strict'
+'use strict';
 
-// let keywords =[];
+let images = [];
+let options = [];
 
-function Image(data) {
-    this.image_url = data.image_url;
-    this.title = data.title;
-    this.description = data.description;
-    this.keyword = data.keyword;
-    this.horns = data.horns;
-
-    Image.all.push(this);
-}
-Image.all = [];
-
-
-// $('#page1').click(getDataFromPage1)
-
-// $('#page1').click(function () {  //////
-    // function getDataFromPage1(){
-    $.get('data/page-1.json').then(data => {
-        //console.log(data)
-        data.forEach(element => {
-            var img = new Image(element);
-            // console.log(img);
-            img.displayImg();
-
-
-        });
-
-        createOptions();
-
-    });
-// }); /////////
-
-// }
-
-
-
-// Image.prototype.displayImg = function () {
-
-//     let itemClone = $('.photo-template').clone().attr('id', this.keyword);
-//     // $('#photo-template').removeAttr('id');
-//     // استخدمنا فايند بدل الدولار ساين
-//     itemClone.find("h2").text(this.title);
-//     itemClone.find("img").attr("src", this.image_url);
-//     itemClone.find("p").text(this.description);
-//     itemClone.removeClass('photo-template');
-//     $('main').append(itemClone);
-
-// }
-
-// ////////////////////////////////////////////////  Lab 3
-
-Image.prototype.displayImg = function () {
-    //1- get template from html
-    let imgTemplate = $('#imageTemplate').html();
-    // 2- map the obj data to template
-    let newObj = Mustache.render(imgTemplate, this);
-    $('main').append(newObj);
+function Card(image_url, title, description, keyword, horns, page){
+    this.url = image_url;
+    this.title = title;
+    this.description = description;
+    this.keyword = keyword;
+    this.horns = horns;
+    this.page = page;
+    images.push(this);
+    if(!options.includes(this.keyword)){
+        options.push(this.keyword);
+    }
 };
 
+for(let i =1; i<3; i++){
+    $.ajax(`./data/page-${i}.json`)
+    .then(data =>{
+        data.forEach(item =>{new Card(item.image_url, item.title, item.description, item.keyword, item.horns, i);})
+        render();
+    })};
 
-function createOptions() {
-    let shown = {};
-    console.log(Image.all)
+// console.log(images)
 
-    Image.all.forEach(img => {
-        if (!shown[img.keyword]) {
-
-            var option = $(`<option value='${img.keyword}'>${img.keyword}</option>`);
-            $("#selectBtn").append(option);
-
-            shown[img.keyword] = true
-
-            console.log('keyword', img.keyword)
-        }
-    })
+function render(){
+    $('#container').html('');
+    $('#keys').html('<option value="default">Filter by Keyword</option>');
+    images.forEach(item => {$('#container').append(Mustache.render($('#1stTempl').html(), item))});
+    options.forEach(keyword => $('#keys').append(Mustache.render(`<option value="${keyword}">{{#.}}{{.}}{{/.}}</option>`, keyword)))
+    $('#keys').val('default');
 }
 
 
+// console.log(options2);
 
-$('#selectBtn').change(function () {
-
-    let selected = $(this).val();
-    $('section').fadeOut();
-    $(`#${selected}`).fadeIn();
-    console.log(selected);
-
+$('#ssort').on('change', (event) =>{
+    if(event.target.value == 'a2z'){
+        images.sort((a, b) => {if(a.title == b.title){return 0}if(a.title>b.title){return 1}else{return -1}});
+        render();
+        cheek();
+    } else if(event.target.value == 'z2a'){
+        images.sort((a, b) => {if(a.title == b.title){return 0}if(a.title<b.title){return 1}else{return -1}});
+        render();
+        cheek();
+    } else if(event.target.value == 'horns'){
+        images.sort((a, b) => a.horns - b.horns);
+        render();
+        cheek();
+    }
 })
-$('#idSort').click(KeywordSort);
 
-function KeywordSort() {
-    Image.all.sort(function (objA, objB) {
-        return objA.keyword.localeCompare(objB.keyword);
 
-    });
-    img.displayImg()
+
+$('#keys').change(event =>{
+    $('section').each(function(){
+        $(this).show();
+        cheek();
+        if(event.target.value == 'default'){
+            $(this).show();
+        }else if($(this).attr('id') !== event.target.value){
+            $(this).hide();
+            // console.log(this)
+        }if($(this).attr('class') === event.target.value){
+            $(this).toggle();   
+        }
+    })});
+
+function cheek(){
+    if($("#cheak1").prop("checked")){
+        // $('section').each(function(){
+        //     // if($(this).attr('page') === '1'){
+        //     //     $(this).hide();
+        //     // }
+            
+        // })
+        $('#container section[page!="1"]').hide();
+    }
+    if($("#cheak2").prop("checked")){
+        // $('section').each(function(){
+        //     if($(this).attr('page') === '2'){
+        //         $(this).hide();    
+        //     }})
+        $('#container section[page!="2"]').hide();
+        }
 
 }
 
+$('input').on('change', function() {
+    $('input').not(this).prop('checked', false); 
+    render(); 
+    cheek();
+});
 
 
-
-// ////////////////////////////////////////////////  Lab 3
-
-// $('#Page2').click(getDataFromPage2)
-
-// function getDataFromPage2() {
-//     $.get('data/page-2.json').then(data => {
-//         //console.log(data)
-//         data.forEach(element => {
-//             var img = new Image(element);
-//             // console.log(img);
-//             img.displayImg();
-
-
-//         });
-
-//         createOptions();
-
-//     });
-
-// }
+//end
