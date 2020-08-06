@@ -122,52 +122,52 @@ function choosePage(num) {
 
 // ////////////////////////////////////////////////  Lab 3
 
-Image.prototype.displayImg = function () {
-    //1- get template from html
-    let imgTemplate = $('#imageTemplate').html();
-    // 2- map the obj data to template
-    let newObj = Mustache.render(imgTemplate, this);
-    $('main').append(newObj);
-};
+// Image.prototype.displayImg = function () {
+//     //1- get template from html
+//     let imgTemplate = $('#imageTemplate').html();
+//     // 2- map the obj data to template
+//     let newObj = Mustache.render(imgTemplate, this);
+//     $('main').append(newObj);
+// };
 
 
-function createOptions() {
-    let shown = {};
-    console.log(Image.all)
+// function createOptions() {
+//     let shown = {};
+//     console.log(Image.all)
 
-    Image.all.forEach(img => {
-        if (!shown[img.keyword]) {
+//     Image.all.forEach(img => {
+//         if (!shown[img.keyword]) {
 
-            var option = $(`<option value='${img.keyword}'>${img.keyword}</option>`);
-            $("#selectBtn").append(option);
+//             var option = $(`<option value='${img.keyword}'>${img.keyword}</option>`);
+//             $("#selectBtn").append(option);
 
-            shown[img.keyword] = true
+//             shown[img.keyword] = true
 
-            console.log('keyword', img.keyword)
-        }
-    })
-}
+//             console.log('keyword', img.keyword)
+//         }
+//     })
+// }
 
 
 
-$('#selectBtn').change(function () {
+// $('#selectBtn').change(function () {
 
-    let selected = $(this).val();
-    $('section').fadeOut();
-    $(`#${selected}`).fadeIn();
-    console.log(selected);
+//     let selected = $(this).val();
+//     $('section').fadeOut();
+//     $(`#${selected}`).fadeIn();
+//     console.log(selected);
 
-})
-$('#idSort').click(KeywordSort);
+// })
+// $('#idSort').click(KeywordSort);
 
-function KeywordSort() {
-    Image.all.sort(function (objA, objB) {
-        return objA.keyword.localeCompare(objB.keyword);
+// function KeywordSort() {
+//     Image.all.sort(function (objA, objB) {
+//         return objA.keyword.localeCompare(objB.keyword);
 
-    });
-    img.displayImg()
+//     });
+//     img.displayImg()
 
-}
+// }
 
 
 
