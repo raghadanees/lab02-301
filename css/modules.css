@@ -1,40 +1,46 @@
-header select{
-    box-sizing: border-box;
-    border-radius: 10px;
-    background-color: rgb(190, 108, 177);
-    text-align: center; 
-    width: 150px;
-    margin-left: 45%;
+header select {
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: rgb(190, 108, 177);
+  text-align: center;
+  width: 150px;
+  margin-left: 45%;
 }
 
-#btn{
-    display: inline-flex;
-    justify-content: center;
-    flex-direction: row;
+#btn {
+  display: inline-flex;
+  justify-content: center;
+  flex-direction: row;
 }
-button{
-    background-color: darkseagreen;
-    display: inline-block;
-    margin: 5px 3px;
-    width: 120px;
-
-}
-
-button:hover{
-    background-color: rgb(206, 47, 47);
+button {
+  background-color: darkseagreen;
+  display: inline-block;
+  margin: 5px 3px;
+  width: 120px;
 }
 
-img{
-width: 250px;
-height: 300px;
+button:hover {
+  background-color: rgb(206, 47, 47);
 }
-section{
-    box-sizing: border-box;
-    width: 250px;
-    display: inline-flex;
-    justify-content: center;
-    flex-direction: row;
+
+img {
+  width: 250px;
+  height: 300px;
 }
+
+section {
+  margin: 30px;
+  margin-left: 300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.8s;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: rgb(243, 217, 217);
+  width: 350px;
+  padding-left: 50px;
+  flex-flow: row;
+}
+
 section p,
 h2 {
   text-align: center;
