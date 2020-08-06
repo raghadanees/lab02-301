@@ -1,51 +1,49 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <title>The Gallery of Horns</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/modules.css">
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/modules.css" />
+    <link rel="stylesheet" href="css/reset.css" />
     <script id="imageTemplate" type="text/x-mustach-template">
-      <div>
-              <h2>{{title}}</h2>
+           <section class={{keyword}}>
+              <h2>{{keyword}}</h2>
               <img src="{{image_url}}" alt="">
-              <p>{{description}}</p>
-      </div>
+              <p>{{title}}</p>
+            </section>
     </script>
-</head>
+  </head>
   <body>
     <header>
       <h1>The Gallery of Horns</h1>
       <select id="selectBtn">
         <option value="default">Filter by Keyword</option>
       </select>
-<div id="btn">
-  <button id="Page1">Page 1</button>
-  <button id="Page2">Page 2</button>
-  <button id="idSort">sort by keyword</button>
-</div>
-      
+      <div id="btn">
+        <button id="Page1">Page 1</button>
+        <button id="Page2">Page 2</button>
+        <button id="byKeyword">sort by keyword</button>
+        <button id="byHorns">Sort by Number of Horns</button>
+      </div>
     </header>
     <main>
-      <section class="photo-template" id="all">
+      <!-- <section id="photo-template" > -->
         <!-- <h2></h2>
         <img src="" alt="">
         <p></p> -->
-      </section>
+      <!-- </section> -->
     </main>
     <footer>
       &copy; 2018 Code Fellows
     </footer>
 
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-<!-- لازم نضيف الجي كويري قبل الجافاسكريبت -->
+    <!-- لازم نضيف الجي كويري قبل الجافاسكريبت -->
     <script src="js/app.js"></script>
   </body>
 </html>
